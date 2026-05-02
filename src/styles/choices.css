@@ -1,0 +1,131 @@
+/* ============================================
+   Choice Panel Styles
+   ============================================ */
+.choices-container {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 600px;
+  padding: 0 var(--space-xl);
+}
+
+.choice-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-lg) var(--space-xl);
+  background: rgba(26, 26, 46, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  text-align: left;
+  cursor: pointer;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.6s var(--ease-out) forwards;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.choice-button:nth-child(1) { animation-delay: 0.3s; }
+.choice-button:nth-child(2) { animation-delay: 0.5s; }
+.choice-button:nth-child(3) { animation-delay: 0.7s; }
+
+.choice-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(230, 167, 86, 0.08) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.choice-button:hover {
+  border-color: rgba(230, 167, 86, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-warm-glow);
+}
+
+.choice-button:hover::before { opacity: 1; }
+.choice-button:active { transform: translateY(0); }
+
+.choice-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(230, 167, 86, 0.1);
+  border: 1px solid rgba(230, 167, 86, 0.2);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  color: var(--accent-warm);
+  flex-shrink: 0;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.choice-button:hover .choice-number {
+  background: var(--accent-warm);
+  color: var(--bg-deep);
+}
+
+.choice-label { position: relative; z-index: 1; line-height: 1.5; }
+
+.choice-button.selected {
+  border-color: var(--accent-warm);
+  background: rgba(230, 167, 86, 0.12);
+  pointer-events: none;
+}
+
+.choice-button.not-selected {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+  pointer-events: none;
+  transition: all 0.5s var(--ease-out);
+}
+
+.choice-key-hint {
+  position: absolute;
+  right: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7rem;
+  color: var(--text-dim);
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  opacity: 0.6;
+}
+
+.continue-prompt {
+  position: absolute;
+  bottom: var(--space-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  font-size: var(--fs-caption);
+  color: var(--text-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-out) 1s forwards, slowPulse 3s 2s infinite;
+  background: none;
+  border: none;
+  padding: var(--space-md) var(--space-xl);
+}
+
+.continue-prompt:hover { color: var(--accent-warm); }

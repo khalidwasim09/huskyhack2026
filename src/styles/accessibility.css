@@ -1,0 +1,102 @@
+/* ============================================
+   Accessibility Panel Styles
+   ============================================ */
+.a11y-panel {
+  position: fixed;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-sm);
+}
+
+.a11y-toggle-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(26, 26, 46, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--duration-fast) ease;
+}
+
+.a11y-toggle-btn:hover {
+  background: rgba(26, 26, 46, 0.9);
+  color: var(--accent-warm);
+  border-color: var(--accent-warm);
+}
+
+.a11y-menu {
+  background: rgba(26, 26, 46, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  min-width: 200px;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all var(--duration-normal) var(--ease-out);
+}
+
+.a11y-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: all;
+}
+
+.a11y-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background var(--duration-fast) ease;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  width: 100%;
+  text-align: left;
+}
+
+.a11y-option:hover { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); }
+.a11y-option.active { color: var(--accent-warm); }
+
+.a11y-option-indicator {
+  width: 32px;
+  height: 18px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  transition: background var(--duration-fast) ease;
+}
+
+.a11y-option.active .a11y-option-indicator { background: var(--accent-warm); }
+
+.a11y-option-indicator::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: white;
+  transition: transform var(--duration-fast) ease;
+}
+
+.a11y-option.active .a11y-option-indicator::after { transform: translateX(14px); }
