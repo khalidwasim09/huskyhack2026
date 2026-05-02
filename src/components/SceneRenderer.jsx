@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ParallaxScene from './ParallaxScene';
 import NarrationOverlay from './NarrationOverlay';
 import ChoicePanel from './ChoicePanel';
+import { usePanController } from '../hooks/usePanController';
 import '../styles/scene.css';
 
 export default function SceneRenderer({ node, onChoice, onAdvance, isTransitioning }) {
   const [choiceMade, setChoiceMade] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
   const [narrationDone, setNarrationDone] = useState(false);
+  const { panX, setPanX } = usePanController();
 
   // Reset state when node changes
   useEffect(() => {
@@ -16,7 +18,7 @@ export default function SceneRenderer({ node, onChoice, onAdvance, isTransitioni
     setNarrationDone(false);
   }, [node?.id]);
 
-  // Show choices after narration completes (small delay for breathing room)
+  // Show choices after narration completes
   useEffect(() => {
     if (narrationDone && node?.choices?.length > 0 && !choiceMade) {
       const timer = setTimeout(() => setShowChoices(true), 600);
@@ -28,20 +30,14 @@ export default function SceneRenderer({ node, onChoice, onAdvance, isTransitioni
     if (choiceMade) return;
     setChoiceMade(true);
     setShowChoices(false);
-    // Brief delay to show selection animation, then advance
     setTimeout(() => onChoice(index), 600);
   }, [choiceMade, onChoice]);
 
-  const handleNarrationClick = useCallback(() => {
-    if (narrationDone && (!node?.choices || node.choices.length === 0)) {
-      onAdvance();
-    }
-  }, [narrationDone, node, onAdvance]);
-
-  // Keyboard: Space/Enter to advance on response nodes
+  // Keyboard: Space/Enter to advance on non-choice nodes
   useEffect(() => {
     const handleKey = (e) => {
-      if ((e.key === 'Enter' || e.key === ' ') && narrationDone && (!node?.choices || node.choices.length === 0)) {
+      if ((e.key === 'Enter' || e.key === ' ') && narrationDone && (!node?.choices || node.choices.length === 0) && node?.next) {
+        e.preventDefault();
         onAdvance();
       }
     };
@@ -55,9 +51,9 @@ export default function SceneRenderer({ node, onChoice, onAdvance, isTransitioni
   const isResponseNode = !hasChoices && node.next;
 
   return (
-    <div className={`scene-container${isTransitioning ? ' transitioning' : ''}${showChoices && hasChoices ? ' has-choices' : ''}`}>
-      {/* Parallax background */}
-      <ParallaxScene scene={node.scene} atmosphere={node.atmosphere} />
+    <div className={`scene-container${isTransitioning ? ' transitioning' : ''}`}>
+      {/* Parallax background — panX passed as prop */}
+      <ParallaxScene scene={node.scene} atmosphere={node.atmosphere} panX={panX} />
 
       {/* Narration text */}
       {node.narration && (
@@ -68,18 +64,19 @@ export default function SceneRenderer({ node, onChoice, onAdvance, isTransitioni
         />
       )}
 
-      {/* Choice buttons */}
+      {/* Spatial choice buttons — hidden until user pans to them */}
       {showChoices && hasChoices && (
         <ChoicePanel
           choices={node.choices}
           onChoice={handleChoice}
           disabled={choiceMade}
+          panX={panX}
         />
       )}
 
-      {/* Continue prompt for response nodes */}
+      {/* Continue prompt for non-choice nodes */}
       {narrationDone && isResponseNode && (
-        <button className="continue-prompt" onClick={handleNarrationClick}>
+        <button className="continue-prompt" onClick={onAdvance}>
           Press Space to continue →
         </button>
       )}

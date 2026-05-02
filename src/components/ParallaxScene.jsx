@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { usePanController } from '../hooks/usePanController';
 
 // Import scene images
 import roomImg from '../assets/scenes/room.png';
@@ -16,12 +15,10 @@ const sceneImages = {
   school: schoolImg,
 };
 
-export default function ParallaxScene({ scene, atmosphere }) {
-  const { panX } = usePanController();
-
+export default function ParallaxScene({ scene, atmosphere, panX }) {
   const bgImage = sceneImages[scene];
 
-  // Generate dust particles
+  // Dust particles
   const dustParticles = useMemo(() => {
     return Array.from({ length: 20 }, (_, i) => ({
       id: i,
@@ -35,33 +32,36 @@ export default function ParallaxScene({ scene, atmosphere }) {
     }));
   }, [scene]);
 
-  // Calculate parallax offset from panX (-1 to 1)
-  const translatePercent = panX * 20;
+  // More zoom = larger translate range. panX goes -1 to 1.
+  // Scale 1.6 means image is 60% wider than viewport.
+  // Translate range: ±18% so edges are reachable.
+  const translatePercent = panX * 18;
 
-  const overlayClass = atmosphere === 'tense_warm' ? 'scene-overlay--tense' :
-                       atmosphere === 'urgent_dim' ? 'scene-overlay--tense' :
-                       atmosphere === 'dark_cold' ? 'scene-overlay--tense' :
-                       'scene-overlay--warm';
+  const overlayClass = atmosphere === 'tense_warm' || atmosphere === 'tense_pressure' 
+    ? 'scene-overlay--tense' 
+    : atmosphere === 'urgent_dim' || atmosphere === 'dark_cold' || atmosphere === 'betrayal'
+    ? 'scene-overlay--tense' 
+    : 'scene-overlay--warm';
 
-  // Adjust brightness based on atmosphere
   const brightnessMap = {
     warm_dim: 'brightness(0.55) saturate(0.8)',
     tense_warm: 'brightness(0.45) saturate(0.7)',
-    urgent_dim: 'brightness(0.35) saturate(0.6)',
-    dark_cold: 'brightness(0.25) saturate(0.5)',
+    tense_pressure: 'brightness(0.40) saturate(0.65)',
+    urgent_dim: 'brightness(0.30) saturate(0.5)',
+    dark_cold: 'brightness(0.22) saturate(0.4)',
+    betrayal: 'brightness(0.18) saturate(0.35)',
   };
   const filterStyle = brightnessMap[atmosphere] || 'brightness(0.5) saturate(0.7)';
 
   return (
     <div className="parallax-scene">
-      {/* Main background image with parallax */}
       {bgImage && (
         <img
           src={bgImage}
           alt=""
           className="scene-bg-image"
           style={{
-            transform: `translateX(${translatePercent}%) scale(1.3)`,
+            transform: `translateX(${translatePercent}%) scale(1.6)`,
             transition: 'transform 150ms linear',
             filter: filterStyle,
           }}
@@ -69,12 +69,10 @@ export default function ParallaxScene({ scene, atmosphere }) {
         />
       )}
 
-      {/* Atmospheric overlays */}
       <div className="scene-overlay scene-overlay--vignette" />
       <div className="scene-overlay scene-overlay--gradient" />
       <div className={`scene-overlay ${overlayClass}`} />
 
-      {/* Dust particles */}
       <div className="dust-container">
         {dustParticles.map(p => (
           <div
@@ -94,7 +92,7 @@ export default function ParallaxScene({ scene, atmosphere }) {
         ))}
       </div>
 
-      {/* Pan indicators */}
+      {/* Pan indicators — always visible */}
       {panX > -0.9 && (
         <div className="pan-indicator pan-indicator--left">
           <span className="pan-arrow">←</span> A

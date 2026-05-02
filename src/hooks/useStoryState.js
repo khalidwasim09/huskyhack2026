@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback } from 'react';
 import storyGraph from '../data/storyGraph.json';
 
 /**
@@ -8,10 +8,8 @@ export function useStoryState() {
   const [currentNodeId, setCurrentNodeId] = useState(storyGraph.startNode);
   const [choiceHistory, setChoiceHistory] = useState([]);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const prevActRef = useRef(0);
 
   const currentNode = storyGraph.nodes[currentNodeId];
-  const isNewAct = currentNode && currentNode.act !== prevActRef.current && currentNode.act > 0;
 
   const makeChoice = useCallback((choiceIndex) => {
     const node = storyGraph.nodes[currentNodeId];
@@ -28,10 +26,8 @@ export function useStoryState() {
       emotionalTone: choice.emotionalTone,
     }]);
 
-    // Transition to next node
     setIsTransitioning(true);
     setTimeout(() => {
-      prevActRef.current = node.act;
       setCurrentNodeId(choice.next);
       setIsTransitioning(false);
     }, 800);
@@ -43,20 +39,14 @@ export function useStoryState() {
 
     setIsTransitioning(true);
     setTimeout(() => {
-      prevActRef.current = node.act;
       setCurrentNodeId(node.next);
       setIsTransitioning(false);
     }, 800);
   }, [currentNodeId]);
 
-  const acknowledgeAct = useCallback(() => {
-    prevActRef.current = currentNode?.act || 0;
-  }, [currentNode]);
-
   const restart = useCallback(() => {
     setCurrentNodeId(storyGraph.startNode);
     setChoiceHistory([]);
-    prevActRef.current = 0;
     setIsTransitioning(false);
   }, []);
 
@@ -65,10 +55,8 @@ export function useStoryState() {
     currentNodeId,
     choiceHistory,
     isTransitioning,
-    isNewAct,
     makeChoice,
     advanceToNext,
-    acknowledgeAct,
     restart,
     allNodes: storyGraph.nodes,
   };

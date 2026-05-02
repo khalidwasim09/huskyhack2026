@@ -1,30 +1,26 @@
 /* ============================================
-   Choice Panel Styles
+   Choice Panel — Spatial Hidden Layout
+   Choices are invisible until user pans to them.
    ============================================ */
-.choices-container {
+
+.choices-spatial {
   position: absolute;
-  bottom: var(--space-xl);
-  left: 50%;
-  transform: translateX(-50%);
+  inset: 0;
   z-index: 20;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  width: 100%;
-  max-width: 600px;
-  padding: 0 var(--space-xl);
+  pointer-events: none;
 }
 
+/* Each choice — positioned on screen edges */
 .choice-button {
-  position: relative;
+  position: absolute;
   display: flex;
   align-items: center;
   gap: var(--space-md);
-  width: 100%;
+  max-width: 320px;
   padding: var(--space-lg) var(--space-xl);
-  background: rgba(26, 26, 46, 0.75);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(26, 26, 46, 0.80);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-lg);
   color: var(--text-primary);
   font-family: var(--font-body);
@@ -33,34 +29,60 @@
   text-align: left;
   cursor: pointer;
   overflow: hidden;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.6s var(--ease-out) forwards;
-  transition: all var(--duration-normal) var(--ease-out);
+  pointer-events: all;
+  transition: border-color 0.3s, box-shadow 0.3s, opacity 0.15s linear;
 }
 
-.choice-button:nth-child(1) { animation-delay: 0.3s; }
-.choice-button:nth-child(2) { animation-delay: 0.5s; }
-.choice-button:nth-child(3) { animation-delay: 0.7s; }
+/* Positions */
+.choice-button.pos-left {
+  left: var(--space-lg);
+  top: 50%;
+  margin-top: -40px;
+}
 
+.choice-button.pos-right {
+  right: var(--space-lg);
+  top: 50%;
+  margin-top: -40px;
+}
+
+.choice-button.pos-center {
+  left: 50%;
+  bottom: var(--space-2xl);
+}
+
+/* Glow border hint */
+.choice-button::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, rgba(230, 167, 86, 0.12), transparent 60%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.choice-button:hover::after { opacity: 1; }
+
+/* Hover */
 .choice-button::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(230, 167, 86, 0.08) 0%, transparent 50%);
+  background: linear-gradient(135deg, rgba(230, 167, 86, 0.10) 0%, transparent 50%);
   opacity: 0;
-  transition: opacity var(--duration-normal) var(--ease-out);
+  transition: opacity 0.3s;
 }
 
 .choice-button:hover {
-  border-color: rgba(230, 167, 86, 0.3);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-warm-glow);
+  border-color: rgba(230, 167, 86, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 24px var(--accent-warm-glow);
 }
 
 .choice-button:hover::before { opacity: 1; }
-.choice-button:active { transform: translateY(0); }
 
+/* Choice number */
 .choice-number {
   display: flex;
   align-items: center;
@@ -74,7 +96,7 @@
   font-weight: 600;
   color: var(--accent-warm);
   flex-shrink: 0;
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: all 0.3s;
 }
 
 .choice-button:hover .choice-number {
@@ -82,34 +104,77 @@
   color: var(--bg-deep);
 }
 
-.choice-label { position: relative; z-index: 1; line-height: 1.5; }
-
-.choice-button.selected {
-  border-color: var(--accent-warm);
-  background: rgba(230, 167, 86, 0.12);
-  pointer-events: none;
-}
-
-.choice-button.not-selected {
-  opacity: 0;
-  transform: translateY(10px) scale(0.95);
-  pointer-events: none;
-  transition: all 0.5s var(--ease-out);
+.choice-label {
+  position: relative;
+  z-index: 1;
+  line-height: 1.5;
 }
 
 .choice-key-hint {
   position: absolute;
+  right: var(--space-md);
+  top: var(--space-sm);
+  font-size: 0.6rem;
+  color: var(--text-dim);
+  padding: 2px 5px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-sm);
+  opacity: 0.4;
+}
+
+/* Direction hints — "Something here" */
+.choice-direction {
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--accent-warm);
+  letter-spacing: 0.12em;
+  pointer-events: none;
+  animation: slowPulse 3s infinite;
+}
+
+.choice-direction.dir-left {
+  left: var(--space-lg);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.choice-direction.dir-right {
   right: var(--space-lg);
   top: 50%;
   transform: translateY(-50%);
-  font-size: 0.7rem;
-  color: var(--text-dim);
-  padding: 2px 8px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-sm);
-  opacity: 0.6;
 }
 
+/* Selected state */
+.choice-button.selected {
+  border-color: var(--accent-warm) !important;
+  background: rgba(230, 167, 86, 0.15);
+  pointer-events: none;
+}
+
+.choice-button.not-selected {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Look around hint */
+.look-hint {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 19;
+  font-family: var(--font-body);
+  font-size: var(--fs-caption);
+  color: var(--accent-warm);
+  letter-spacing: 0.2em;
+  pointer-events: none;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px var(--accent-warm-glow);
+  animation: slowPulse 3s infinite;
+  white-space: nowrap;
+}
+
+/* Continue prompt */
 .continue-prompt {
   position: absolute;
   bottom: var(--space-xl);
@@ -122,7 +187,7 @@
   text-transform: uppercase;
   cursor: pointer;
   opacity: 0;
-  animation: fadeIn 1s var(--ease-out) 1s forwards, slowPulse 3s 2s infinite;
+  animation: fadeIn 1s var(--ease-out) 0.8s forwards, slowPulse 3s 2s infinite;
   background: none;
   border: none;
   padding: var(--space-md) var(--space-xl);

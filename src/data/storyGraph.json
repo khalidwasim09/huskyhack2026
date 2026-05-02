@@ -7,75 +7,110 @@
       "scene": "intro",
       "narration": "",
       "choices": [],
-      "next": "prologue"
+      "next": "prologue_1"
     },
 
-    "prologue": {
-      "id": "prologue",
-      "act": 1,
-      "actTitle": "Before",
-      "scene": "room",
-      "narration": "She was the best student in her class. Not just good. Different. Numbers made sense to her. Patterns felt natural. Her teacher once said, quietly, \"You think faster than most people I've met.\" She kept a notebook hidden under her pillow. Equations. Ideas. Questions about the world. She wanted to become a scientist.",
-      "atmosphere": "warm_dim",
-      "choices": [],
-      "next": "prologue_2"
-    },
-
-    "prologue_2": {
-      "id": "prologue_2",
+    "prologue_1": {
+      "id": "prologue_1",
       "act": 1,
       "scene": "room",
-      "narration": "Every morning, she walked to school before the sun fully rose. Every evening, she came back just before dark. That day felt normal. Until it didn't. Her mother didn't look at her when she entered.",
+      "narration": "Numbers have always made sense to me. Patterns line up as if they've been waiting for me to notice them. My teacher once said, quietly, that some minds are not taught — they are found. I carry those words like a small treasure.",
+      "atmosphere": "warm_dim",
+      "choices": [
+        {
+          "label": "Open my notebook and study.",
+          "next": "chose_notebook",
+          "hiddenEffect": "studious",
+          "emotionalTone": "hopeful",
+          "position": "left"
+        },
+        {
+          "label": "Look out the window and dream.",
+          "next": "chose_window",
+          "hiddenEffect": "dreamer",
+          "emotionalTone": "wistful",
+          "position": "right"
+        }
+      ]
+    },
+
+    "chose_notebook": {
+      "id": "chose_notebook",
+      "act": 1,
+      "scene": "room",
+      "narration": "I open the notebook hidden under my pillow. Equations, ideas, questions about the world. Each morning I walk to school before the sun fully rises. I want to be a scientist. I want to solve the problems nobody else can see.",
       "atmosphere": "warm_dim",
       "choices": [],
-      "next": "announcement"
+      "next": "homecoming"
     },
 
-    "announcement": {
-      "id": "announcement",
+    "chose_window": {
+      "id": "chose_window",
+      "act": 1,
+      "scene": "room",
+      "narration": "Through the dusty glass, the village stretches out — small, familiar, unchanging. But in my mind, the world is larger. I imagine laboratories, universities, a life where I keep learning. Each morning I walk to school before anyone else wakes.",
+      "atmosphere": "warm_dim",
+      "choices": [],
+      "next": "homecoming"
+    },
+
+    "homecoming": {
+      "id": "homecoming",
       "act": 2,
-      "actTitle": "The Announcement",
       "scene": "announcement",
-      "narration": "Her father spoke instead. \"You're getting married.\" Silence. She thought it was a joke. Then she saw their faces.",
+      "narration": "Today begins like any other. The same road, the same classroom. Nothing warns me. When I step inside my home, the air feels different. My mother avoids my eyes. My father sits still.",
       "atmosphere": "tense_warm",
       "choices": [],
-      "next": "announcement_2"
+      "next": "the_words"
     },
 
-    "announcement_2": {
-      "id": "announcement_2",
+    "the_words": {
+      "id": "the_words",
       "act": 2,
       "scene": "announcement",
-      "narration": "\"He is a good man,\" her mother said softly. \"He can provide.\" \"He is older,\" her father added. \"That is better.\" She asked how old.",
+      "narration": "\"You're getting married,\" he says. The words hang in the room. I wait for someone to laugh, to explain. No one does. I ask who. \"A man who can take care of you.\" I ask how old.",
       "atmosphere": "tense_warm",
       "choices": [],
-      "next": "announcement_3"
+      "next": "fifty"
     },
 
-    "announcement_3": {
-      "id": "announcement_3",
+    "fifty": {
+      "id": "fifty",
       "act": 2,
       "scene": "announcement",
-      "narration": "\"Fifty.\" Something inside her went still. \"I have school,\" she said. No one answered. \"I have exams next month.\" Her mother finally looked at her. \"You won't need them.\"",
+      "narration": "\"Fifty.\"",
+      "atmosphere": "tense_warm",
+      "choices": [],
+      "next": "react_choice"
+    },
+
+    "react_choice": {
+      "id": "react_choice",
+      "act": 2,
+      "scene": "announcement",
+      "narration": "Something inside me shifts. Not loudly. Just enough to make everything uncertain.",
       "atmosphere": "tense_warm",
       "choices": [
         {
-          "label": "Stay calm and ask again",
+          "label": "\"I have school. I have exams.\"",
           "next": "react_calm",
           "hiddenEffect": "composure",
-          "emotionalTone": "measured"
+          "emotionalTone": "measured",
+          "position": "left"
         },
         {
-          "label": "Refuse immediately",
+          "label": "\"No. I won't do this.\"",
           "next": "react_refuse",
           "hiddenEffect": "resistance",
-          "emotionalTone": "defiant"
+          "emotionalTone": "defiant",
+          "position": "right"
         },
         {
-          "label": "Leave the room",
+          "label": "Walk away without a word.",
           "next": "react_leave",
           "hiddenEffect": "avoidance",
-          "emotionalTone": "overwhelmed"
+          "emotionalTone": "overwhelmed",
+          "position": "center"
         }
       ]
     },
@@ -84,122 +119,161 @@
       "id": "react_calm",
       "act": 2,
       "scene": "announcement",
-      "narration": "She steadied her voice. \"Can we talk about this? I'm doing well in school. My teacher says I could go further.\" Her father looked at her the way you look at rain you've already decided to walk through. \"This has been decided.\" Her mother's hands tightened around her teacup. No one moved. The conversation was over before it began.",
+      "narration": "At first, they listen. My mother speaks of safety. My father speaks of responsibility. But nothing changes. \"This is not your decision,\" he says. The certainty in his voice has never been wrong — because no one has ever been allowed to correct it.",
       "atmosphere": "tense_warm",
-      "emotionalResponse": "Composure doesn't matter when the answer was decided before the question.",
+      "emotionalResponse": "Composure does not matter when the answer was decided before the question.",
       "choices": [],
-      "next": "pressure"
+      "next": "days_pass"
     },
 
     "react_refuse": {
       "id": "react_refuse",
       "act": 2,
       "scene": "announcement",
-      "narration": "\"No.\" The word came out sharp and clear. For a moment, the room tilted. Her father's expression didn't change. Her mother flinched. \"This is not a question,\" her father said, his voice lower now. Not angry. Worse. Certain. The kind of certainty that has never once been wrong, because no one has ever been allowed to correct it.",
+      "narration": "\"No.\" The word comes out sharp. My father's expression does not change. My mother flinches. \"This is not a question,\" he says. His voice is not angry. It is certain. The kind of certainty that has never once been wrong.",
       "atmosphere": "tense_warm",
-      "emotionalResponse": "Refusal requires power. She had none.",
+      "emotionalResponse": "Refusal requires power. I have none.",
       "choices": [],
-      "next": "pressure"
+      "next": "days_pass"
     },
 
     "react_leave": {
       "id": "react_leave",
       "act": 2,
       "scene": "announcement",
-      "narration": "She stood up. Her legs felt like someone else's. She walked to her room and closed the door. Not loudly. Not softly. Just closed it. She sat on her bed and stared at the wall. Through the door, she heard her parents continue talking. Lower now. As if she had already left the house. As if she was already gone.",
+      "narration": "I stand. My legs feel like someone else's. I close the door. Through it, I hear my parents continue talking. Lower now. As if I have already left the house. As if I am already gone.",
       "atmosphere": "tense_warm",
-      "emotionalResponse": "Leaving a room doesn't stop what's happening inside it.",
+      "emotionalResponse": "Leaving a room does not stop what is happening inside it.",
       "choices": [],
-      "next": "pressure"
+      "next": "days_pass"
     },
 
-    "pressure": {
-      "id": "pressure",
+    "days_pass": {
+      "id": "days_pass",
       "act": 3,
-      "actTitle": "The Pressure",
       "scene": "pressure",
-      "narration": "Days pass. The house fills with people. Voices. Plans. Decisions. Not hers. She tries again. \"I want to study.\" Her mother sighs. \"You've studied enough.\" \"I want to become something.\" \"You will. A wife.\"",
-      "atmosphere": "tense_warm",
+      "narration": "Days pass heavy and slow. People come and go. Plans are made in rooms I am not invited into. My school bag is moved. My notebook disappears.",
+      "atmosphere": "tense_pressure",
       "choices": [
         {
-          "label": "Keep arguing",
-          "next": "pressure_argue",
+          "label": "Keep trying to make them hear me.",
+          "next": "pressure_speak",
           "hiddenEffect": "persistence",
-          "emotionalTone": "desperate"
+          "emotionalTone": "desperate",
+          "position": "left"
         },
         {
-          "label": "Stay quiet",
+          "label": "Stop talking. Stop trying.",
           "next": "pressure_quiet",
           "hiddenEffect": "withdrawal",
-          "emotionalTone": "defeated"
+          "emotionalTone": "defeated",
+          "position": "right"
         },
         {
-          "label": "Ask your mother for help",
+          "label": "Find my mother alone. Beg her.",
           "next": "pressure_mother",
           "hiddenEffect": "trust",
-          "emotionalTone": "vulnerable"
+          "emotionalTone": "vulnerable",
+          "position": "center"
         }
       ]
     },
 
-    "pressure_argue": {
-      "id": "pressure_argue",
+    "pressure_speak": {
+      "id": "pressure_speak",
       "act": 3,
       "scene": "pressure",
-      "narration": "At first, they listen. Then they stop. Then they get angry. \"This is not your decision.\" \"This is how things are done.\" \"Do not embarrass us.\" The notebook disappears. Her school bag is moved. Her name is no longer spoken the same way.",
-      "atmosphere": "tense_warm",
-      "emotionalResponse": "Arguing requires someone willing to hear you. No one was.",
+      "narration": "The more I resist, the less I am heard. \"Don't make this harder than it needs to be.\" My name is no longer spoken the same way. I am not a student anymore. I am a problem being solved.",
+      "atmosphere": "tense_pressure",
+      "emotionalResponse": "The more I speak, the smaller my voice becomes.",
       "choices": [],
-      "next": "escape_night"
+      "next": "wedding_close"
     },
 
     "pressure_quiet": {
       "id": "pressure_quiet",
       "act": 3,
       "scene": "pressure",
-      "narration": "She stops talking. She eats when told. She sits where pointed. She watches them plan her life like furniture arrangement. The notebook disappears anyway. Her school bag is moved. Silence didn't protect her. It just made her easier to carry.",
-      "atmosphere": "tense_warm",
+      "narration": "I stop talking. I eat when told. I sit where pointed. I watch them plan my life like furniture arrangement. Silence does not protect me. It just makes me easier to carry.",
+      "atmosphere": "tense_pressure",
       "emotionalResponse": "Silence is not safety. It is surrender made invisible.",
       "choices": [],
-      "next": "escape_night"
+      "next": "wedding_close"
     },
 
     "pressure_mother": {
       "id": "pressure_mother",
       "act": 3,
       "scene": "pressure",
-      "narration": "She finds her mother alone in the kitchen. \"Mama. Please. You know I'm good at school. You know this isn't right.\" Her mother is quiet for a long time. Then she holds her. Too tight. The way you hold something you've already decided to let go of. \"I know,\" she whispers. \"But I can't.\" The notebook disappears the next day. Her school bag is moved. Her mother does not look at her again.",
-      "atmosphere": "tense_warm",
+      "narration": "\"Mama. Please. You know I'm good at school.\" She holds me. Too tight. The way you hold something you've already decided to let go of. \"I know,\" she whispers. \"But I can't.\"",
+      "atmosphere": "tense_pressure",
       "emotionalResponse": "Love without power is just grief with a witness.",
       "choices": [],
-      "next": "escape_night"
+      "next": "wedding_close"
     },
 
-    "escape_night": {
-      "id": "escape_night",
+    "wedding_close": {
+      "id": "wedding_close",
       "act": 4,
-      "actTitle": "The Night Before",
       "scene": "night_road",
-      "narration": "The wedding is in a few days. That night, she doesn't sleep. She lies still and listens to the house breathe. She thinks of one person. Her teacher. The one who said she was different. The one who told her she thought faster than most people. She leaves before sunrise. Runs the same road she walks every day. But faster. Different.",
+      "narration": "The wedding is in two days. That night, the house goes quiet. I lie awake. I think of one person — my teacher. The one who said I was different. The one who told me I was meant for more.",
       "atmosphere": "urgent_dim",
       "choices": [
         {
-          "label": "Go back home",
-          "next": "escape_back",
+          "label": "Stay. Accept what is coming.",
+          "next": "escape_stay",
           "hiddenEffect": "surrender",
-          "emotionalTone": "resigned"
+          "emotionalTone": "resigned",
+          "position": "left"
         },
         {
-          "label": "Hide somewhere",
+          "label": "Leave before sunrise.",
+          "next": "the_run",
+          "hiddenEffect": "escape",
+          "emotionalTone": "determined",
+          "position": "right"
+        }
+      ]
+    },
+
+    "escape_stay": {
+      "id": "escape_stay",
+      "act": 4,
+      "scene": "night_road",
+      "narration": "I pull the blanket tighter. Close my eyes. In the morning, my father tells me the guests are arriving early. I nod. There was never anywhere to go.",
+      "atmosphere": "dark_cold",
+      "emotionalResponse": "Staying was not a choice. It was gravity.",
+      "choices": [],
+      "next": "aftermath"
+    },
+
+    "the_run": {
+      "id": "the_run",
+      "act": 4,
+      "scene": "night_road",
+      "narration": "Before the sun rises, I leave. I walk the same road I walk every morning. But faster. Each step feels urgent. The school is ahead.",
+      "atmosphere": "urgent_dim",
+      "choices": [
+        {
+          "label": "Turn back. The darkness is too heavy.",
+          "next": "escape_back",
+          "hiddenEffect": "fear",
+          "emotionalTone": "afraid",
+          "position": "left"
+        },
+        {
+          "label": "Hide behind the market stalls.",
           "next": "escape_hide",
           "hiddenEffect": "survival",
-          "emotionalTone": "afraid"
+          "emotionalTone": "desperate",
+          "position": "right"
         },
         {
-          "label": "Run to your teacher",
+          "label": "Keep running to my teacher.",
           "next": "escape_teacher",
           "hiddenEffect": "trust",
-          "emotionalTone": "desperate_hope"
+          "emotionalTone": "hope",
+          "position": "center"
         }
       ]
     },
@@ -208,8 +282,8 @@
       "id": "escape_back",
       "act": 4,
       "scene": "night_road",
-      "narration": "Halfway down the road, she stops. The darkness feels heavier than the house. She turns around. Walks back. Slower now. Sits on her bed. Waits. In the morning, her father tells her the guests are arriving early. She nods. She doesn't know what else to do. There was never anything else to do.",
-      "atmosphere": "urgent_dim",
+      "narration": "Halfway down the road, I stop. I turn around. Walk back. Sit on my bed. Wait. In the morning, the guests arrive. I nod when spoken to.",
+      "atmosphere": "dark_cold",
       "emotionalResponse": "Going back was not a choice. It was gravity.",
       "choices": [],
       "next": "aftermath"
@@ -219,9 +293,9 @@
       "id": "escape_hide",
       "act": 4,
       "scene": "night_road",
-      "narration": "She finds a place behind the market stalls. Cold concrete. The smell of old vegetables. She sits with her knees against her chest and waits for something. She doesn't know what. Morning comes. Then voices. Her uncle finds her before noon. He doesn't hit her. He doesn't yell. He just says, \"Come.\" And she does. Because where else is there?",
-      "atmosphere": "urgent_dim",
-      "emotionalResponse": "You can only hide in a place where someone isn't already looking.",
+      "narration": "Cold concrete behind the market stalls. The smell of old vegetables. I wait with my knees against my chest. My uncle finds me before noon. He just says, \"Come.\" And I do. Because where else is there?",
+      "atmosphere": "dark_cold",
+      "emotionalResponse": "You can only hide where someone is not already looking.",
       "choices": [],
       "next": "aftermath"
     },
@@ -230,29 +304,39 @@
       "id": "escape_teacher",
       "act": 4,
       "scene": "school",
-      "narration": "She reaches the school. Empty. Quiet. Her teacher is there. She tells her everything. Every word comes out at once. \"I don't want this. I want to study. I want to stay here. Please help me.\"",
+      "narration": "The school stands quiet and still. My teacher is there. I tell her everything — the man, the wedding, the fear. \"I don't want this. Please help me.\"",
       "atmosphere": "urgent_dim",
       "choices": [],
-      "next": "betrayal"
+      "next": "teacher_nods"
     },
 
-    "betrayal": {
-      "id": "betrayal",
+    "teacher_nods": {
+      "id": "teacher_nods",
       "act": 4,
       "scene": "school",
-      "narration": "For a moment, nothing. Then her teacher nods slowly. \"You did the right thing coming here.\" Relief. For the first time in days.",
+      "narration": "She listens. Nods. \"You did the right thing coming here.\" Relief. For the first time in days. For one moment, everything feels possible again.",
       "atmosphere": "urgent_dim",
       "choices": [],
-      "next": "betrayal_2"
+      "next": "the_door"
     },
 
-    "betrayal_2": {
-      "id": "betrayal_2",
+    "the_door": {
+      "id": "the_door",
       "act": 4,
       "scene": "school",
-      "narration": "The door opens. Footsteps. Her father. She turns. Confused. Her teacher doesn't look at her. \"She's here,\" she says. Everything becomes quiet again. But this time, it feels final.",
-      "atmosphere": "dark_cold",
-      "emotionalResponse": "Even the person who told you that you were special was part of the system that decided you weren't.",
+      "narration": "The door opens. Footsteps. My father. I turn, confused. How did he know? How did he find me?",
+      "atmosphere": "betrayal",
+      "choices": [],
+      "next": "shes_here"
+    },
+
+    "shes_here": {
+      "id": "shes_here",
+      "act": 4,
+      "scene": "school",
+      "narration": "My teacher does not meet my eyes. \"She's here,\" she says.",
+      "atmosphere": "betrayal",
+      "emotionalResponse": "I had run toward someone I thought stood outside of it. But there was no outside.",
       "choices": [],
       "next": "aftermath"
     },
@@ -261,9 +345,9 @@
       "id": "aftermath",
       "act": 4,
       "scene": "room",
-      "narration": "Days later, the house is full again. But she is not. Not really. Her notebook is gone. Her school is gone. Her future is smaller now. Somewhere, numbers still make sense. But no one is asking her to solve them.",
+      "narration": "The day comes as planned. Everything happens as it was meant to. Just not by me. My notebook does not return. My school is no longer mine. The future I imagined fades until it no longer feels real.",
       "atmosphere": "dark_cold",
-      "emotionalResponse": "",
+      "emotionalResponse": "Somewhere, numbers still make sense. But no one is asking me to solve them.",
       "choices": [],
       "next": "reveal"
     },
@@ -271,10 +355,9 @@
     "reveal": {
       "id": "reveal",
       "act": 5,
-      "actTitle": "The Reveal",
       "scene": "reveal",
       "narration": "",
-      "atmosphere": "dark_cold",
+      "atmosphere": "silence",
       "choices": [],
       "next": "reflection"
     },
@@ -282,10 +365,9 @@
     "reflection": {
       "id": "reflection",
       "act": 6,
-      "actTitle": "Reflection",
       "scene": "reflection",
       "narration": "",
-      "atmosphere": "somber",
+      "atmosphere": "silence",
       "choices": [],
       "next": null
     }

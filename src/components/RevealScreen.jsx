@@ -22,19 +22,19 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
     return () => window.removeEventListener('keydown', handleKey);
   }, [handleKey]);
 
-  // Choice labels for the branch visualization
+  // Choice labels for the branch visualization (main 3 decision points)
   const allChoiceLabels = [
-    ['Stay calm', 'Refuse', 'Leave'],
-    ['Argue', 'Stay quiet', 'Ask mother'],
-    ['Go back', 'Hide', 'Run to teacher'],
+    ['Explained', 'Refused', 'Left'],
+    ['Argued', 'Went quiet', 'Begged'],
+    ['Went back', 'Hid', 'Ran to teacher'],
   ];
 
-  // Get user's actual choices per act
+  // Get user's actual choices — the 3 main decision points
   const act2Choice = choiceHistory.find(c => c.act === 2);
   const act3Choice = choiceHistory.find(c => c.act === 3);
-  const act4Choice = choiceHistory.find(c => c.act === 4);
-
-  const userChoices = [act2Choice, act3Choice, act4Choice];
+  // Act 4 has two choice points — get the escape choice (the run)
+  const act4Choices = choiceHistory.filter(c => c.act === 4);
+  const escapeChoice = act4Choices.find(c => c.nodeId === 'the_run') || act4Choices[act4Choices.length - 1];
 
   return (
     <div className="reveal-screen">
@@ -104,7 +104,7 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             {/* Act 3 branches — The Night Before */}
             {allChoiceLabels[2].map((label, i) => {
               const startX = 100 + i * 200;
-              const selected = act4Choice?.choiceIndex === i;
+              const selected = escapeChoice?.choiceIndex === i;
               return (
                 <g key={`a3-${i}`}>
                   <path
