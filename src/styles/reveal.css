@@ -6,30 +6,30 @@
   inset: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   background: var(--bg-deep);
   z-index: 30;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .reveal-bg {
-  position: absolute;
+  position: fixed; /* Keep background fixed while scrolling */
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.3;
   filter: blur(2px);
+  pointer-events: none;
 }
 
 .reveal-content {
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: var(--space-xl);
+  padding: 8vh var(--space-xl); /* Add top/bottom padding so it doesn't touch edges when scrolling */
   max-width: 900px;
   width: 100%;
+  margin: auto; /* Centers when fits, natural flow when overflows */
 }
 
 /* Branch visualization */
