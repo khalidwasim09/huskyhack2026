@@ -109,6 +109,17 @@
   text-shadow: 0 0 40px var(--accent-red-glow);
 }
 
+.reveal-sub-text {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: var(--space-lg);
+  line-height: 1.8;
+  opacity: 0;
+  animation: fadeInUp 1s var(--ease-out) 0.8s forwards;
+}
+
 .reveal-continue {
   font-size: var(--fs-caption);
   color: var(--text-dim);

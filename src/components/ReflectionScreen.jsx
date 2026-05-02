@@ -16,8 +16,8 @@ export default function ReflectionScreen({ choiceHistory, onRestart }) {
 
   const stats = [
     { icon: '⏱', label: 'Time Lost', value: 'A childhood' },
-    { icon: '📚', label: 'Education Interrupted', value: 'Permanently' },
-    { icon: '🔮', label: 'Future Narrowed', value: 'To one path' },
+    { icon: '📚', label: 'Education', value: 'Interrupted' },
+    { icon: '🔬', label: 'Dream of Science', value: 'Erased' },
     { icon: '🔇', label: 'Voice Ignored', value: `${choiceHistory.length} times` },
   ];
 
@@ -37,18 +37,20 @@ export default function ReflectionScreen({ choiceHistory, onRestart }) {
         </div>
 
         <div className="final-message">
-          <p>"This is not one girl's story."</p>
+          <p>"Somewhere, numbers still make sense."</p>
+          <p>"But no one is asking her to solve them."</p>
           <p className="final-system">
-            This is what happens when tradition, poverty, fear, and silence
-            become a system. When every choice leads to the same ending,
-            the problem is not the choice — it is the system.
+            Every year, 12 million girls are married before age 18.
+            Not because they chose to.
+            Because the system — tradition, poverty, fear, and silence —
+            chose for them.
           </p>
         </div>
 
         <div className="final-divider" />
 
         <div className="final-cta">
-          <p>Every year, 12 million girls are married before age 18.</p>
+          <p>You didn't choose wrong. There was no right choice.</p>
           <button className="restart-button" onClick={onRestart}>
             Experience Again
           </button>
