@@ -66,5 +66,29 @@ export function usePanController() {
     setPanSource(source);
   }, []);
 
+  // WebSocket connection to CV server
+useEffect(() => {
+  const ws = new WebSocket("ws://localhost:8765");
+  
+  ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    
+    // Pan: convert your 0-1 range to their -1 to 1 range
+    if (data.pan !== undefined) {
+      const converted = (data.pan - 0.5) * -2;      setExternalPan(converted, 'opencv');
+    }
+
+    // Choices: simulate keypresses 1/2/3
+    if (data.choice !== null && data.choice !== undefined) {
+      const event = new KeyboardEvent('keydown', { key: String(data.choice) });
+      window.dispatchEvent(event);
+    }
+  };
+
+  ws.onerror = () => console.warn("CV server not connected - using keyboard fallback");
+  
+  return () => ws.close();
+}, [setExternalPan]);
+
   return { panX, panSource, setPanX: setExternalPan };
 }
