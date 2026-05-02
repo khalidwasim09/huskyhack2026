@@ -3,13 +3,17 @@ import { usePanController } from '../hooks/usePanController';
 
 // Import scene images
 import roomImg from '../assets/scenes/room.png';
+import announcementImg from '../assets/scenes/announcement.png';
 import pressureImg from '../assets/scenes/pressure.png';
-import escapeImg from '../assets/scenes/escape.png';
+import nightRoadImg from '../assets/scenes/night_road.png';
+import schoolImg from '../assets/scenes/school.png';
 
 const sceneImages = {
   room: roomImg,
+  announcement: announcementImg,
   pressure: pressureImg,
-  escape: escapeImg,
+  night_road: nightRoadImg,
+  school: schoolImg,
 };
 
 export default function ParallaxScene({ scene, atmosphere }) {
@@ -32,12 +36,21 @@ export default function ParallaxScene({ scene, atmosphere }) {
   }, [scene]);
 
   // Calculate parallax offset from panX (-1 to 1)
-  // Move the image so user sees different parts
-  const translatePercent = panX * 20; // ±20% movement
+  const translatePercent = panX * 20;
 
   const overlayClass = atmosphere === 'tense_warm' ? 'scene-overlay--tense' :
                        atmosphere === 'urgent_dim' ? 'scene-overlay--tense' :
+                       atmosphere === 'dark_cold' ? 'scene-overlay--tense' :
                        'scene-overlay--warm';
+
+  // Adjust brightness based on atmosphere
+  const brightnessMap = {
+    warm_dim: 'brightness(0.55) saturate(0.8)',
+    tense_warm: 'brightness(0.45) saturate(0.7)',
+    urgent_dim: 'brightness(0.35) saturate(0.6)',
+    dark_cold: 'brightness(0.25) saturate(0.5)',
+  };
+  const filterStyle = brightnessMap[atmosphere] || 'brightness(0.5) saturate(0.7)';
 
   return (
     <div className="parallax-scene">
@@ -50,6 +63,7 @@ export default function ParallaxScene({ scene, atmosphere }) {
           style={{
             transform: `translateX(${translatePercent}%) scale(1.3)`,
             transition: 'transform 150ms linear',
+            filter: filterStyle,
           }}
           role="presentation"
         />

@@ -22,16 +22,19 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
     return () => window.removeEventListener('keydown', handleKey);
   }, [handleKey]);
 
-  // Get choices per act for branch visualization
-  const act1Choice = choiceHistory.find(c => c.act === 1);
+  // Choice labels for the branch visualization
+  const allChoiceLabels = [
+    ['Stay calm', 'Refuse', 'Leave'],
+    ['Argue', 'Stay quiet', 'Ask mother'],
+    ['Go back', 'Hide', 'Run to teacher'],
+  ];
+
+  // Get user's actual choices per act
   const act2Choice = choiceHistory.find(c => c.act === 2);
   const act3Choice = choiceHistory.find(c => c.act === 3);
+  const act4Choice = choiceHistory.find(c => c.act === 4);
 
-  const allChoiceLabels = [
-    ['Study quietly', 'Help family', 'Ask about school'],
-    ['Speak up', 'Stay quiet', 'Ask mother'],
-    ['Talk to teacher', 'Hide papers', 'Work harder'],
-  ];
+  const userChoices = [act2Choice, act3Choice, act4Choice];
 
   return (
     <div className="reveal-screen">
@@ -41,10 +44,10 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
         {/* Branch SVG */}
         <div className="branch-visualization">
           <svg viewBox="0 0 600 400" className="branch-svg" aria-label="All story paths converge to the same outcome">
-            {/* Act 1 branches */}
+            {/* Act 1 branches — The Announcement */}
             {allChoiceLabels[0].map((label, i) => {
               const startX = 100 + i * 200;
-              const selected = act1Choice?.choiceIndex === i;
+              const selected = act2Choice?.choiceIndex === i;
               return (
                 <g key={`a1-${i}`}>
                   <circle
@@ -67,10 +70,10 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             {/* Convergence point 1 */}
             <circle cx={200} cy={130} r={5} className="branch-node" style={{ animationDelay: '1s' }} />
 
-            {/* Act 2 branches */}
+            {/* Act 2 branches — The Pressure */}
             {allChoiceLabels[1].map((label, i) => {
               const startX = 100 + i * 200;
-              const selected = act2Choice?.choiceIndex === i;
+              const selected = act3Choice?.choiceIndex === i;
               return (
                 <g key={`a2-${i}`}>
                   <path
@@ -98,10 +101,10 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             {/* Convergence point 2 */}
             <circle cx={300} cy={270} r={5} className="branch-node" style={{ animationDelay: '2.2s' }} />
 
-            {/* Act 3 branches */}
+            {/* Act 3 branches — The Night Before */}
             {allChoiceLabels[2].map((label, i) => {
               const startX = 100 + i * 200;
-              const selected = act3Choice?.choiceIndex === i;
+              const selected = act4Choice?.choiceIndex === i;
               return (
                 <g key={`a3-${i}`}>
                   <path
@@ -135,8 +138,11 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
         {showText && (
           <div className="reveal-text-block" style={{ animation: 'fadeInUp 1.2s var(--ease-out) forwards' }}>
             <p className="reveal-main-text">
-              You made {choiceHistory.length} choices.
-              <span className="reveal-highlight">The system made the decision.</span>
+              You made choices.
+              <span className="reveal-highlight">They did not matter.</span>
+            </p>
+            <p className="reveal-sub-text">
+              Some lives are decided long before the person living them has a say.
             </p>
             <button className="reveal-continue" onClick={onContinue}>
               Continue →

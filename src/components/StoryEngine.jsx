@@ -31,12 +31,12 @@ export default function StoryEngine() {
       return;
     }
 
-    if (currentNode.act === 4) {
+    if (currentNode.act === 5 && currentNode.id === 'reveal') {
       setPhase('reveal');
       return;
     }
 
-    if (currentNode.act === 5) {
+    if (currentNode.act === 6) {
       setPhase('reflection');
       return;
     }
