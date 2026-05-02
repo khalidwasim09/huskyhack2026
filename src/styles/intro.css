@@ -1,163 +1,212 @@
-/* ============================================
-   IntroScreen Styles
-   ============================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Nunito:wght@400;600;700&display=swap');
+
+:root {
+  --ink: #2b211b;
+  --paper: #ead8b8;
+  --paper-deep: #c99f6c;
+  --rose: #b94a4d;
+  --gold: #d59745;
+  --shadow: rgba(31, 20, 12, 0.42);
+}
 
 .intro-screen {
-  position: fixed;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-deep);
-  z-index: 100;
-  cursor: pointer;
+  min-height: 100vh;
+  position: relative;
   overflow: hidden;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 25% 28%, rgba(255, 227, 175, 0.45), transparent 28%),
+    radial-gradient(circle at 80% 70%, rgba(125, 72, 46, 0.28), transparent 36%),
+    linear-gradient(135deg, #241912 0%, #5e3d27 46%, #1d1815 100%);
+  cursor: pointer;
+  transition: opacity 1.2s ease, filter 1.2s ease;
 }
 
-.intro-screen::before {
-  content: '';
+.intro-screen.fading {
+  opacity: 0;
+  filter: blur(10px);
+}
+
+.painted-bg {
+  position: absolute;
+  inset: 5vw;
+
+  border: 3px solid rgba(45, 31, 22, 0.75);
+  border-radius: 4px 22px 8px 18px;
+
+  background:
+    radial-gradient(circle at 22% 30%, rgba(255, 214, 153, 0.25), transparent 30%),
+    radial-gradient(circle at 75% 65%, rgba(120, 70, 40, 0.25), transparent 40%),
+    linear-gradient(135deg, #3a281d 0%, #7a5235 45%, #2a1d15 100%);
+
+  opacity: 0.55;
+  filter: saturate(0.85);
+
+  box-shadow:
+    inset 0 0 140px rgba(0, 0, 0, 0.75),
+    0 0 0 1px rgba(255, 230, 180, 0.08);
+}
+
+.paper-grain {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at 50% 40%,
-    rgba(230, 167, 86, 0.06) 0%,
-    transparent 70%
-  );
   pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    repeating-linear-gradient(8deg, rgba(255,255,255,0.16) 0 1px, transparent 1px 7px),
+    repeating-linear-gradient(98deg, rgba(0,0,0,0.12) 0 1px, transparent 1px 9px);
+  mix-blend-mode: soft-light;
 }
 
-.intro-screen::after {
-  content: '';
+.window-glow {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at 50% 100%,
-    rgba(233, 69, 96, 0.04) 0%,
-    transparent 50%
-  );
-  pointer-events: none;
+  left: 12%;
+  top: 22%;
+  width: 26vw;
+  height: 30vh;
+  background: radial-gradient(circle, rgba(247, 196, 106, 0.32), transparent 68%);
+  filter: blur(20px);
 }
 
-.intro-vignette {
-  position: absolute;
-  inset: 0;
-  box-shadow: inset 0 0 200px 80px rgba(0, 0, 0, 0.9);
-  pointer-events: none;
-  z-index: 1;
-}
-
-.intro-content {
+.intro-card {
   position: relative;
   z-index: 2;
+  width: min(720px, 86vw);
+  padding: clamp(2.4rem, 6vw, 5rem);
   text-align: center;
-  padding: var(--space-xl);
+  background:
+    linear-gradient(rgba(255, 244, 218, 0.86), rgba(229, 199, 153, 0.82));
+  color: var(--ink);
+  border: 3px solid rgba(49, 35, 26, 0.8);
+  border-radius: 18px 8px 22px 10px;
+  box-shadow:
+    18px 22px 0 rgba(43, 29, 20, 0.28),
+    0 28px 80px var(--shadow),
+    inset 0 0 0 1px rgba(255, 249, 224, 0.65);
+  animation: cardEnter 900ms ease both;
+}
+
+.intro-card::before,
+.intro-card::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1.5px solid rgba(95, 63, 39, 0.36);
+  border-radius: 12px 5px 16px 7px;
+  pointer-events: none;
+}
+
+.intro-card::after {
+  inset: -18px;
+  border-color: rgba(255, 228, 174, 0.15);
+  transform: rotate(-1.2deg);
 }
 
 .intro-label {
-  font-family: var(--font-body);
-  font-size: var(--fs-caption);
-  font-weight: 500;
-  letter-spacing: 0.3em;
+  margin: 0 0 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--accent-warm);
-  margin-bottom: var(--space-lg);
-  opacity: 0;
-  animation: fadeInDown 1.2s var(--ease-out) 0.5s forwards;
+  color: #8a5a2c;
 }
 
 .intro-title {
-  font-family: var(--font-heading);
-  font-size: clamp(2.5rem, 8vw, 5.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--text-primary);
-  margin-bottom: var(--space-xl);
-  opacity: 0;
-  animation: fadeIn 2s var(--ease-out) 1s forwards;
-  text-shadow: 0 0 80px rgba(230, 167, 86, 0.15);
+  margin: 0;
+  font-family: 'Fraunces', 'Cormorant Garamond', serif;
+  font-size: clamp(4rem, 11vw, 8.5rem);
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  color: #33231b;
 }
 
-.intro-title em {
-  font-style: italic;
-  color: var(--accent-red);
+.intro-title span {
   display: block;
-  font-size: 0.85em;
-  margin-top: var(--space-xs);
+  margin-top: 0.18em;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--rose);
+  letter-spacing: -0.04em;
 }
 
 .intro-subtitle {
-  font-family: var(--font-body);
-  font-size: var(--fs-body);
-  font-weight: 300;
-  color: var(--text-muted);
-  max-width: 500px;
-  margin: 0 auto var(--space-3xl);
-  line-height: 1.8;
-  opacity: 0;
-  animation: fadeInUp 1.5s var(--ease-out) 2s forwards;
+  max-width: 460px;
+  margin: 2rem auto 0;
+  font-family: 'Nunito', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+  color: rgba(43, 33, 27, 0.78);
 }
 
 .intro-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  font-family: var(--font-body);
-  font-size: var(--fs-caption);
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  margin-top: 2.6rem;
+  padding: 0.95rem 1.5rem;
+  border: 2px solid #3b2a20;
+  border-radius: 999px;
+  background: #2e221b;
+  color: #f7dfb7;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--text-dim);
-  background: none;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: var(--space-md) var(--space-xl);
-  border-radius: var(--radius-xl);
+  box-shadow: 5px 6px 0 rgba(72, 49, 32, 0.25);
   cursor: pointer;
-  opacity: 0;
-  animation: fadeIn 1s var(--ease-out) 3s forwards;
-  transition: all var(--duration-normal) var(--ease-out);
+  transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
 .intro-cta:hover {
-  color: var(--text-primary);
-  border-color: var(--accent-warm);
-  box-shadow: 0 0 30px var(--accent-warm-glow);
-  transform: translateY(-2px);
+  transform: translate(-2px, -2px);
+  background: #4a2f24;
+  box-shadow: 8px 9px 0 rgba(72, 49, 32, 0.22);
 }
 
-.intro-cta .cta-arrow {
-  display: inline-block;
-  transition: transform var(--duration-normal) var(--ease-out);
-}
-
-.intro-cta:hover .cta-arrow {
-  transform: translateX(4px);
+.intro-cta span {
+  margin-left: 0.7rem;
 }
 
 .intro-warning {
   position: absolute;
-  bottom: var(--space-xl);
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-body);
-  font-size: 0.75rem;
-  color: var(--text-dim);
-  letter-spacing: 0.1em;
-  opacity: 0;
-  animation: fadeIn 1s var(--ease-out) 3.5s forwards;
+  z-index: 2;
+  bottom: 2rem;
+  max-width: 520px;
+  padding: 0 1rem;
   text-align: center;
-  max-width: 400px;
-  line-height: 1.6;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(246, 224, 190, 0.55);
 }
 
-/* Fade out transition */
-.intro-screen.fading {
-  animation: fadeOut 1.5s var(--ease-in-out) forwards;
-}
-
-@keyframes fadeOut {
-  to {
+@keyframes cardEnter {
+  from {
     opacity: 0;
-    transform: scale(1.02);
+    transform: translateY(18px) rotate(-0.4deg) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(-0.4deg) scale(1);
+  }
+}
+
+@media (max-width: 700px) {
+  .painted-bg {
+    inset: 2vw;
+  }
+
+  .intro-card {
+    width: 82vw;
+    padding: 2.4rem 1.5rem;
+  }
+
+  .intro-title {
+    font-size: clamp(3.5rem, 19vw, 5.4rem);
+  }
+
+  .intro-warning {
+    bottom: 1rem;
   }
 }

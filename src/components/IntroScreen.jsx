@@ -5,44 +5,48 @@ export default function IntroScreen({ onBegin }) {
   const [fading, setFading] = useState(false);
 
   const handleBegin = () => {
+    if (fading) return;
     setFading(true);
-    setTimeout(() => onBegin(), 1500);
+    setTimeout(() => onBegin(), 1200);
   };
 
   return (
-    <div
+    <main
       className={`intro-screen${fading ? ' fading' : ''}`}
-      onClick={handleBegin}
       role="button"
       tabIndex={0}
       aria-label="Begin the story"
+      onClick={handleBegin}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') handleBegin();
       }}
     >
-      <div className="intro-vignette" />
+      <div className="painted-bg" />
+      <div className="paper-grain" />
+      <div className="window-glow" />
 
-      <div className="intro-content">
-        <p className="intro-label">An Interactive Experience</p>
+      <section className="intro-card" onClick={(e) => e.stopPropagation()}>
+        <p className="intro-label">An interactive story</p>
 
         <h1 className="intro-title">
-          No Real <em>Choice</em>
+          No Real
+          <span>Choice</span>
         </h1>
 
         <p className="intro-subtitle">
-          An interactive story about the illusion of choice
-          when the system is built against you.
+          A story about growing up inside a system where every path seems open,
+          until it closes.
         </p>
 
-        <button className="intro-cta" onClick={handleBegin} aria-label="Begin">
-          Begin <span className="cta-arrow">→</span>
+        <button className="intro-cta" onClick={handleBegin}>
+          Begin the story
+          <span>→</span>
         </button>
-      </div>
+      </section>
 
       <p className="intro-warning">
-        This experience addresses child marriage through storytelling.
-        No graphic imagery is shown. Viewer discretion is advised.
+        This experience addresses child marriage through non-graphic storytelling.
       </p>
-    </div>
+    </main>
   );
 }

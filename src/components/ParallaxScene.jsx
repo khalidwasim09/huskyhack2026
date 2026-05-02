@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 
 // Import scene images
-import roomImg from '../assets/scenes/room.png';
-import announcementImg from '../assets/scenes/announcement.png';
-import pressureImg from '../assets/scenes/pressure.png';
-import nightRoadImg from '../assets/scenes/night_road.png';
-import schoolImg from '../assets/scenes/school.png';
+import roomImg from '../assets/scenes/room.webp';
+import announcementImg from '../assets/scenes/room_2.png';
+import pressureImg from '../assets/scenes/home.webp';
+import nightRoadImg from '../assets/scenes/night_road.webp';
+import schoolImg from '../assets/scenes/school.webp';
 
 const sceneImages = {
   room: roomImg,
@@ -35,8 +35,7 @@ export default function ParallaxScene({ scene, atmosphere, panX }) {
   // More zoom = larger translate range. panX goes -1 to 1.
   // Scale 1.6 means image is 60% wider than viewport.
   // Translate range: ±18% so edges are reachable.
-  const translatePercent = panX * 18;
-
+  const translatePercent = panX * (211 / 2131 * 100 / 2);
   const overlayClass = atmosphere === 'tense_warm' || atmosphere === 'tense_pressure' 
     ? 'scene-overlay--tense' 
     : atmosphere === 'urgent_dim' || atmosphere === 'dark_cold' || atmosphere === 'betrayal'
@@ -61,9 +60,12 @@ export default function ParallaxScene({ scene, atmosphere, panX }) {
           alt=""
           className="scene-bg-image"
           style={{
-            transform: `translateX(${translatePercent}%) scale(1.6)`,
+            transform: `translateX(${translatePercent}%) scale(1.0)`,
             transition: 'transform 150ms linear',
             filter: filterStyle,
+              width: '2131px',
+              height: '1080px',
+              maxWidth: 'none',
           }}
           role="presentation"
         />

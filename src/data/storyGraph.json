@@ -220,7 +220,7 @@
       "atmosphere": "urgent_dim",
       "choices": [
         {
-          "label": "Stay. Accept what is coming.",
+          "label": "Stay awake until morning.",
           "next": "escape_stay",
           "hiddenEffect": "surrender",
           "emotionalTone": "resigned",
