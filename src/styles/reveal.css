@@ -27,7 +27,7 @@
   z-index: 2;
   text-align: center;
   padding: 8vh var(--space-xl); /* Add top/bottom padding so it doesn't touch edges when scrolling */
-  max-width: 900px;
+  max-width: 1000px;
   width: 100%;
   margin: auto; /* Centers when fits, natural flow when overflows */
 }
@@ -35,7 +35,7 @@
 /* Branch visualization */
 .branch-visualization {
   width: 100%;
-  max-width: 700px;
+  max-width: 1000px;
   margin: 0 auto var(--space-2xl);
   position: relative;
 }
@@ -84,6 +84,48 @@
   text-anchor: middle;
   opacity: 0;
   animation: fadeIn 0.5s var(--ease-out) forwards;
+}
+
+/* Branch Fact Tooltips */
+.branch-fact-box {
+  background: rgba(20, 20, 30, 0.85);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  color: var(--text-dim);
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeIn 1s var(--ease-out) forwards;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  border-left: 2px solid var(--accent-warm);
+}
+
+.branch-fact-box strong {
+  color: var(--accent-warm);
+  font-family: var(--font-heading);
+  font-size: 12px;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.branch-fact-box.fact-left {
+  text-align: right;
+  border-left: none;
+  border-right: 2px solid var(--accent-red);
+}
+
+.branch-fact-box.fact-left strong {
+  color: var(--accent-red);
+}
+
+.branch-fact-box.fact-highlight {
+  border-left-color: var(--accent-blue);
+}
+
+.branch-fact-box.fact-highlight strong {
+  color: var(--accent-blue);
 }
 
 /* Reveal text */

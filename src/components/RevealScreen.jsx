@@ -43,10 +43,10 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
       <div className="reveal-content">
         {/* Branch SVG */}
         <div className="branch-visualization">
-          <svg viewBox="0 0 600 400" className="branch-svg" aria-label="All story paths converge to the same outcome">
+          <svg viewBox="0 0 1000 450" className="branch-svg" aria-label="All story paths converge to the same outcome">
             {/* Act 1 branches — The Announcement */}
             {allChoiceLabels[0].map((label, i) => {
-              const startX = 100 + i * 200;
+              const startX = 300 + i * 200;
               const selected = act2Choice?.choiceIndex === i;
               return (
                 <g key={`a1-${i}`}>
@@ -59,7 +59,7 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
                     {label}
                   </text>
                   <path
-                    d={`M ${startX} 36 C ${startX} 80, ${100 + i * 200} 100, ${200} 130`}
+                    d={`M ${startX} 36 C ${startX} 80, ${300 + i * 200} 100, 500 130`}
                     className="branch-line"
                     style={{ animationDelay: `${i * 0.3}s` }}
                   />
@@ -68,16 +68,24 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             })}
 
             {/* Convergence point 1 */}
-            <circle cx={200} cy={130} r={5} className="branch-node" style={{ animationDelay: '1s' }} />
+            <circle cx={500} cy={130} r={5} className="branch-node" style={{ animationDelay: '1s' }} />
+            
+            {/* Fact 1 - Far Right Margin */}
+            <path d="M 505 130 L 720 130" className="branch-line" style={{ strokeDasharray: '4', opacity: 0.3, animationDelay: '1.2s' }} />
+            <foreignObject x="730" y="100" width="220" height="60">
+              <div xmlns="http://www.w3.org/1999/xhtml" className="branch-fact-box" style={{ animationDelay: '1.5s' }}>
+                <strong>12M+</strong> girls are married before age 18 every year.
+              </div>
+            </foreignObject>
 
             {/* Act 2 branches — The Pressure */}
             {allChoiceLabels[1].map((label, i) => {
-              const startX = 100 + i * 200;
+              const startX = 300 + i * 200;
               const selected = act3Choice?.choiceIndex === i;
               return (
                 <g key={`a2-${i}`}>
                   <path
-                    d={`M 200 135 C 200 160, ${startX} 170, ${startX} 190`}
+                    d={`M 500 135 C 500 160, ${startX} 170, ${startX} 190`}
                     className="branch-line"
                     style={{ animationDelay: `${1.2 + i * 0.3}s` }}
                   />
@@ -90,7 +98,7 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
                     {label}
                   </text>
                   <path
-                    d={`M ${startX} 196 C ${startX} 230, 300 250, 300 270`}
+                    d={`M ${startX} 196 C ${startX} 230, 500 250, 500 270`}
                     className="branch-line"
                     style={{ animationDelay: `${1.5 + i * 0.3}s` }}
                   />
@@ -99,16 +107,24 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             })}
 
             {/* Convergence point 2 */}
-            <circle cx={300} cy={270} r={5} className="branch-node" style={{ animationDelay: '2.2s' }} />
+            <circle cx={500} cy={270} r={5} className="branch-node" style={{ animationDelay: '2.2s' }} />
+            
+            {/* Fact 2 - Far Left Margin */}
+            <path d="M 495 270 L 280 270" className="branch-line" style={{ strokeDasharray: '4', opacity: 0.3, animationDelay: '2.4s' }} />
+            <foreignObject x="50" y="240" width="220" height="60">
+              <div xmlns="http://www.w3.org/1999/xhtml" className="branch-fact-box fact-left" style={{ animationDelay: '2.7s' }}>
+                <strong>35%</strong> of young women in Sub-Saharan Africa are married in childhood.
+              </div>
+            </foreignObject>
 
             {/* Act 3 branches — The Night Before */}
             {allChoiceLabels[2].map((label, i) => {
-              const startX = 100 + i * 200;
+              const startX = 300 + i * 200;
               const selected = escapeChoice?.choiceIndex === i;
               return (
                 <g key={`a3-${i}`}>
                   <path
-                    d={`M 300 275 C 300 300, ${startX} 310, ${startX} 320`}
+                    d={`M 500 275 C 500 300, ${startX} 310, ${startX} 320`}
                     className="branch-line"
                     style={{ animationDelay: `${2.4 + i * 0.3}s` }}
                   />
@@ -121,7 +137,7 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
                     {label}
                   </text>
                   <path
-                    d={`M ${startX} 326 C ${startX} 355, 300 365, 300 375`}
+                    d={`M ${startX} 326 C ${startX} 355, 500 365, 500 375`}
                     className="branch-line"
                     style={{ animationDelay: `${2.7 + i * 0.3}s` }}
                   />
@@ -130,7 +146,15 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             })}
 
             {/* Final convergence — the reveal */}
-            <circle cx={300} cy={380} r={8} className="branch-node branch-node--end" />
+            <circle cx={500} cy={380} r={8} className="branch-node branch-node--end" />
+            
+            {/* Fact 3 - Far Right Margin */}
+            <path d="M 510 380 L 720 380" className="branch-line" style={{ strokeDasharray: '4', opacity: 0.3, animationDelay: '3.2s' }} />
+            <foreignObject x="730" y="350" width="220" height="60">
+              <div xmlns="http://www.w3.org/1999/xhtml" className="branch-fact-box fact-highlight" style={{ animationDelay: '3.5s' }}>
+                <strong>1 in 5</strong> girls globally are married before adulthood.
+              </div>
+            </foreignObject>
           </svg>
         </div>
 
@@ -144,7 +168,8 @@ export default function RevealScreen({ choiceHistory, onContinue }) {
             <p className="reveal-sub-text">
               Some lives are decided long before the person living them has a say.
             </p>
-            <button className="reveal-continue" onClick={onContinue}>
+
+            <button className="reveal-continue" onClick={onContinue} style={{ animationDelay: '2s' }}>
               Continue →
             </button>
           </div>
